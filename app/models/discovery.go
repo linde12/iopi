@@ -1,7 +1,10 @@
 package models
 
-import "github.com/nvellon/hal"
-import "mdns"
+import (
+	"iobox/sd/mdns"
+
+	"github.com/nvellon/hal"
+)
 
 type Discovery struct {
 	Id       int

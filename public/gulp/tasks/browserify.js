@@ -9,10 +9,12 @@ var connect = require('gulp-connect');
 var config = require('../config').browserify;
 
 watchify.args.debug = config.debug;
-console.log(config)
 var bundler = watchify(browserify(config.src, {debug:true}));
 config.settings.transform.forEach(function(t) {
-  bundler.transform(babelify);
+  bundler.transform(babelify, {
+    presets: ['es2015', 'react'],
+    plugins: ['transform-object-rest-spread']
+  });
 });
 
 gulp.task('browserify', bundle);

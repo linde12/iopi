@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"encoding/gob"
 	"ioboxrevel/app"
+	"ioboxrevel/app/mdns"
 	"ioboxrevel/app/models"
-	"mdns"
 	"strconv"
 
 	"github.com/nvellon/hal"
