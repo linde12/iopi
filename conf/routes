@@ -1,0 +1,33 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+module:testrunner
+
+GET     /                                       Static.Serve("public/dist/index.html")
+
+GET     /api                                    App.EntryPoint
+
+# Users
+GET     /api/users                              Users.List
+GET     /api/users/:id                          Users.Get
+
+# Ports
+GET     /api/ports                              Ports.List
+GET     /api/ports/:id                          Ports.Get
+
+# Discovery
+POST    /api/discovery                          Discovery.Create
+GET     /api/discovery/:id                      Discovery.Get
+
+# Ignore favicon requests
+GET     /favicon.ico                            404
+
+# Map static resources from the /app/public folder to the /public path
+GET     /js/*filepath                       Static.Serve("public/dist/js")
+GET     /img/*filepath                       Static.Serve("public/dist/img")
+GET     /styles/*filepath                       Static.Serve("public/dist/styles")
+GET     /public/*filepath                       Static.Serve("public/dist")
+
+# Catch all
+*       /:controller/:action                    :controller.:action
