@@ -11,7 +11,6 @@ class ServicesContainer extends Component {
   render () {
     let meter;
     if (this.props.discovery.loading) {
-      console.log(this.props.discovery.progress);
       meter = (
         <Box align='center'>
             Finding services...
@@ -36,7 +35,6 @@ class ServicesContainer extends Component {
   }
 
   componentWillUnmount () {
-    console.log(this.abort);
     this.abort();
   }
 }
