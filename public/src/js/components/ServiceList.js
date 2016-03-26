@@ -11,7 +11,6 @@ export default class ServiceList extends Component {
             <th>Name</th>
             <th>Type</th>
             <th>Port</th>
-            <th>Text</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +27,6 @@ export default class ServiceList extends Component {
           <td>{s.name}</td>
           <td>{s.type}</td>
           <td>{s.port}</td>
-          <td>{s.text.join(', ')}</td>
         </TableRow>
       );
     });

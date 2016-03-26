@@ -7,7 +7,7 @@ export default function discovery (state = initialState, action) {
   switch(action.type) {
     case 'CREATE_DISCOVERY':
       return {
-        ...state,
+        data: [],
         loading: true,
         progress: 0
       };
