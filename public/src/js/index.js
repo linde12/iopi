@@ -11,6 +11,7 @@ import store from './store';
 import AppContainer from './containers/AppContainer';
 import HomeContainer from './containers/HomeContainer';
 import PortsContainer from './containers/PortsContainer';
+import ServicesContainer from './containers/ServicesContainer';
 injectTapEventPlugin();
 
 ReactDOM.render(
@@ -20,8 +21,9 @@ ReactDOM.render(
         <Route component={AppContainer}>
           <Route path='/' component={HomeContainer} />
           <Route path='ports' component={PortsContainer} />
+          <Route path='services' component={ServicesContainer} />
         </Route>
       </Router>
     </App>
-  </Provider>
-, document.getElementById('root'));
+  </Provider>,
+  document.getElementById('root'));

@@ -3,3 +3,4 @@ tmp/
 routes/
 public/node_modules
 public/dist
+iobox.db

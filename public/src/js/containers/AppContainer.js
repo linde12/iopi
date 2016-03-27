@@ -115,7 +115,8 @@ export default class App extends Component {
   _getLinks () {
     return [
       {name: 'Home', path: '/'},
-      {name: 'Ports', path: 'ports'}
+      {name: 'Ports', path: 'ports'},
+      {name: 'Services', path: 'services'}
     ];
   }
 

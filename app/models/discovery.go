@@ -1,7 +1,7 @@
 package models
 
 import (
-	"iobox/sd/mdns"
+	"ioboxrevel/app/mdns"
 
 	"github.com/nvellon/hal"
 )

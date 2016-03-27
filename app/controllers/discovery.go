@@ -7,6 +7,7 @@ import (
 	"ioboxrevel/app/mdns"
 	"ioboxrevel/app/models"
 	"strconv"
+	"strings"
 
 	"github.com/nvellon/hal"
 	"github.com/revel/revel"
@@ -59,22 +60,41 @@ func (c Discovery) Get(id int) revel.Result {
 
 func startDiscovery(id int64) {
 	var entries []mdns.Result
+	numDisc := 1
 	done := false
 	resCh := make(chan *mdns.Result)
 	doneCh := make(chan bool)
-	mdns.Discover("_workstation._tcp", resCh, doneCh, 4)
+	mdns.Discover("_services._dns-sd._udp", resCh, doneCh, 5)
 
 	for !done {
 		select {
 		case res := <-resCh:
-			entries = append(entries, *res)
-		case done = <-doneCh:
+			name := strings.Replace(res.ServiceInstanceName(),
+				".local._services._dns-sd._udp.local.",
+				"", -1)
+			numDisc++
+			mdns.Discover(name, resCh, doneCh, 5)
+
+			if res.ServiceRecord.Service != "_services._dns-sd._udp" {
+				entries = append(entries, *res)
+				updateDiscovery(id, &entries)
+			}
+		case <-doneCh:
+			numDisc--
+			if numDisc == 0 {
+				done = true
+				break
+			}
 		}
 	}
 
+	updateDiscovery(id, &entries)
+}
+
+func updateDiscovery(id int64, entries *[]mdns.Result) {
 	mCache := new(bytes.Buffer)
 	encCache := gob.NewEncoder(mCache)
-	encCache.Encode(entries)
+	encCache.Encode(*entries)
 	_, err := app.DB.Exec("UPDATE discoveries SET Services=? WHERE Id=?", mCache.Bytes(), id)
 	if err != nil {
 		revel.ERROR.Println("Error while creating discovery:", err)
